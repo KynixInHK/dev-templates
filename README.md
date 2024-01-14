@@ -5,7 +5,7 @@
 To initialize (where `${ENV}` is listed in the table below):
 
 ```shell
-nix flake init --template github:the-nix-way/dev-templates#${ENV}
+nix flake init --template github:KynixInHK/dev-templates#${ENV}
 ```
 
 Here's an example (for the [`rust`](./rust) template):
