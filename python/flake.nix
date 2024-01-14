@@ -13,7 +13,7 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ python311 virtualenv ] ++
+          packages = with pkgs; [ python3 virtualenv ] ++
             (with pkgs.python311Packages; [ pip ]);
         };
       });
