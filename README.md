@@ -12,10 +12,10 @@ Here's an example (for the [`rust`](./rust) template):
 
 ```shell
 # Initialize in the current project
-nix flake init --template github:the-nix-way/dev-templates#rust
+nix flake init --template github:KynixInHK/dev-templates#rust
 
 # Create a new project
-nix flake new --template github:the-nix-way/dev-templates#rust ${NEW_PROJECT_DIRECTORY}
+nix flake new --template github:KynixInHK/dev-templates#rust ${NEW_PROJECT_DIRECTORY}
 ```
 
 ## How to use the templates
