@@ -1,36 +1,35 @@
 {
-  description = "A Nix-flake-based Python development environment";
+  description = "My Flake";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+  inputs = {
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+  };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs }: 
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      pythonEnv = nixpkgs.python3.withPackages (ps: with ps; [ pip ]);
     in
     {
-      devShells = forEachSupportedSystem ({ pkgs }: {
-        default = pkgs.mkShell {
-          packages = with pkgs; [ python3 virtualenv ] ++
-            (with pkgs.python311Packages; [ pip ]);
-	  buildInputs = with pkgs; [
-     	    git gitRepo gnupg autoconf curl
-     	    procps gnumake util-linux m4 gperf unzip
-     	    cudatoolkit linuxPackages.nvidia_x11
-     	    libGLU libGL
-     	    xorg.libXi xorg.libXmu freeglut
-     	    xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib 
-     	    ncurses5 stdenv.cc binutils
-   	  ];
-	  shellHook = ''
-      	    export CUDA_PATH=${pkgs.cudatoolkit}
-      	    # export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
-      	    export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
-      	    export EXTRA_CCFLAGS="-I/usr/include"
-   	  '';
-        };
-      });
+      devShell = nixpkgs.mkShell {
+        buildInputs = with nixpkgs; [
+          pythonEnv
+          git gitRepo gnupg autoconf curl
+          procps gnumake util-linux m4 gperf unzip
+          cudatoolkit linuxPackages.nvidia_x11
+          libGLU libGL
+          xorg.libXi xorg.libXmu freeglut
+          xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib 
+          ncurses5 stdenv.cc binutils
+        ];
+        shellHook = ''
+          export CUDA_PATH=${nixpkgs.cudatoolkit}
+          export LD_LIBRARY_PATH=${nixpkgs.linuxPackages.nvidia_x11}/lib:${nixpkgs.ncurses5}/lib
+          export EXTRA_LDFLAGS="-L/lib -L${nixpkgs.linuxPackages.nvidia_x11}/lib"
+          export EXTRA_CCFLAGS="-I/usr/include"
+
+          # 可选：激活Python虚拟环境
+          source ${pythonEnv}/bin/activate
+        '';
+      };
     };
 }
