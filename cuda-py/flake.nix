@@ -7,7 +7,6 @@
           inherit system;
           config.allowUnfree = true;
           config.cudaSupport = true;
-          config.cudaVersion = "12";
         };
       in {
         devShells.${system}.default = pkgs.mkShell {
