@@ -72,7 +72,7 @@
         };
 
 	      cuda-py = {
-	        path = ./cuda-py
+	        path = ./cuda-py;
 	        description = "Cuda Python development environment";
 	      };
 
