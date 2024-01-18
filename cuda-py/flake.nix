@@ -19,6 +19,7 @@
             ncurses5 stdenv.cc binutils
             (pkgs.python3.withPackages(ps: with ps; [
               pip
+              virtualenv
             ]))
           ];
 
