@@ -71,10 +71,10 @@
           description = "C# development environment";
         };
 
-	cuda-python = {
-	  path = ./cuda-python
-	  description = "Cuda Python development environment";
-	};
+	      cuda-py = {
+	        path = ./cuda-py
+	        description = "Cuda Python development environment";
+	      };
 
         cue = {
           path = ./cue;
