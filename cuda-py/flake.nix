@@ -17,11 +17,11 @@
             xorg.libXi xorg.libXmu freeglut
             xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib 
             ncurses5 stdenv.cc binutils
+            conda
             (pkgs.python3.withPackages(ps: with ps; [
               pip
               virtualenv
               stdenv
-              conda
             ]))
           ];
 
