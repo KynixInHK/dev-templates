@@ -21,6 +21,7 @@
               pip
               virtualenv
               stdenv
+              conda
             ]))
           ];
 
