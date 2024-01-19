@@ -25,7 +25,7 @@
           ];
 
           shellHook = ''
-              export LD_LIBRARY_PATH="${pkgs.linuxPackages.nvidia_x11}/lib"
+              export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib/:${pkgs.linuxPackages.nvidia_x11}/lib"
           '';          
         };
       };
